@@ -124,8 +124,14 @@ var routes = [
         var role = userRoles.public, username = '';
         // if the request has a user
         if(req.user) {
-        	// set the role to the user role
-          role = req.user.role;
+          // req passing in only the name of the role
+          // attach the userRole here
+        	if (req.user.role === 'admin') {
+                    role = userRoles.admin;
+                } else {
+                    role = userRoles.user;
+                }
+
           // set the username to the user username
           username = req.user.username;
         }

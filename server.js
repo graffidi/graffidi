@@ -2,68 +2,42 @@
 var express = require('express'),
        http = require('http'),
    passport = require('passport'),
-       path = require('path');
+       path = require('path'),
+       User = require('./server/models/User.js');
 
 // create the express/node server
 var app = express();
 
-// development set up
-app.configure('development', function(){
-  app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-});
+app.set('views', __dirname + '/client/views');
+app.set('view engine', 'jade');
+app.use(express.logger('dev'))
+app.use(express.cookieParser());
+app.use(express.bodyParser());
+app.use(express.methodOverride());
+app.use(express.static(path.join(__dirname, 'client')));
+app.use(express.cookieSession(
+    {
+        secret: process.env.COOKIE_SECRET || "Superdupersecret"
+    }));
+app.use(passport.initialize());
+app.use(passport.session());
 
-// production set up
-app.configure('production', function(){
-  app.use(express.errorHandler());
-});
+passport.use(User.localStrategy);
+passport.use(User.twitterStrategy());  // Comment out this line if you don't want to enable login via Twitter
+passport.use(User.facebookStrategy()); // Comment out this line if you don't want to enable login via Facebook
+passport.use(User.googleStrategy());   // Comment out this line if you don't want to enable login via Google
+//passport.use(User.linkedInStrategy()); // Comment out this line if you don't want to enable login via LinkedIn
 
-// Routes
+passport.serializeUser(User.serializeUser);
+passport.deserializeUser(User.deserializeUser);
 
-app.get('/', routes.index);
-app.get('/partials/:name', routes.partials);
-
-// added to test passport
-app.get('/users', function(req, res){
-  res.send([{name: "user1"}, {name: "user2"}]);
-});
-
-// route to test if the user is logged in or not
-app.get('/loggedin', function(req, res) {
-  res.send(req.isAuthenticated() ? req.user : '0');
-});
-
-// route to log in
-app.post('/login', passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login' }));
-
-// route to log out
-app.post('/logout', function(req, res){
-  req.logOut();
-  res.send(200);
-});
-
-// JSON API
-// add passport calls into the JSON API calls!!
-//app.post('/login', passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login' }));
-
-app.get('/api/posts',auth, api.posts);
-
-app.get('/api/post/:id',auth, api.post);
-app.post('/api/post',auth, api.addPost);
-app.put('/api/post/:id',auth, api.editPost);
-app.delete('/api/post/:id',auth, api.deletePost);
-
-// redirect all others to the index (HTML5 history)
-app.get('*', routes.index);
-
-app.listen(3000, function(){
-  console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
-});
+require('./server/routes.js')(app);
 
 // set the port to listen to the exvironement port or port 8000
-//app.set('port', process.env.PORT || 8000);
+app.set('port', process.env.PORT || 8000);
 
 // returns a new web server object and listens to it and gets the port number
 // console log the server status
-//http.createServer(app).listen(app.get('port'), function(){
-//    console.log("Express server listening on port " + app.get('port'));
-//});
+http.createServer(app).listen(app.get('port'), function(){
+   console.log("Express server listening on port " + app.get('port'));
+});
