@@ -9,7 +9,7 @@ var              _ = require('underscore'),
     GoogleStrategy = require('passport-google').Strategy,
   LinkedInStrategy = require('passport-linkedin').Strategy,
              check = require('validator').check,
-             async = require('async'),
+             //async = require('async'),
          userRoles = require('../../client/js/routingConfig').userRoles,
          Sequelize = require('sequelize-mysql').sequelize;
 
@@ -50,10 +50,12 @@ Users.findAll().success(function(allusers){
 module.exports = {
 	// addUser function - takes username, password, role, callback
   addUser: function(username, password, role, callback) {
-    // If doesn't exist create new user
+    // Search the User table for the username supplied
     Users.find({where: {username: username}}).success(function(user) {
+      // If doesn't exist create new user
       if (!user) {
         var user = {
+          // Refactor without .max if time
           id: _.max(users, function(user) { return user.id; }).id + 1,
           username:   username,
           password:   password,
@@ -64,6 +66,7 @@ module.exports = {
         };
         // add the user back to the database
         Users.create(user, [ 'username', 'password', 'first_name', 'last_name', 'email', 'role' ]).success(function(user) {
+          // add the user to the user array
           users.push(user);
           if(user) {
               if (user.role === 'admin') {
@@ -72,12 +75,14 @@ module.exports = {
                   user.role = userRoles.user;
               }
           };
+          // Run callback (err=null, user)
           callback(null, user);
         });
       }
     });
   },
 
+  // Refactor to store IDs
   // use Oauth to see if the user is in the system
   findOrCreateOauthUser: function(provider, providerId) {
   	// user is set to the user returned by the find function
@@ -104,19 +109,33 @@ module.exports = {
 
   // findAll returns an array of all the users
   findAll: function() {
-    return _.map(users, function(user) { return _.clone(user); });
+    return Users.findAll().success(function(users){
+      console.log('Got all Users ', allusers.length);
+      return users;
+    });
   },
   // findById returns a clone of the user if the id matches
   findById: function(id) {
-    return _.clone(_.find(users, function(user) { return user.id === id }));
+    return Users.find({where: {id: id}}).success(function(user) {
+      return user;
+    });
   },
   // findByUsername returns a clone of the user if the username matches
-  findByUsername: function(username) {
-    return _.clone(_.find(users, function(user) { return user.username === username; }));
+  findByUsername: function(username, callback) {
+    Users.find({where: {username: username}}).success(function(user) {
+      if(!user) {
+        return callback(null, null);
+      }
+      if (user.username === username) {
+        return callback(null, user);
+      }
+    });
   },
   // findByProviderId returns true if there is a user if the provider id is true
   findByProviderId: function(provider, id) {
-    return _.find(users, function(user) { return user[provider] === id; });
+    return Users.find({where: {provider: id}}).success(function(user) {
+      return user;
+    });
   },
   // validate takes user and checks for creation conditions
   validate: function(user) {
@@ -134,22 +153,31 @@ module.exports = {
   // localStrategy - takes username, password, done callback
   localStrategy: new LocalStrategy(
     function(username, password, done) {
-    	// creates a user variable and checks if it is in the database
-      var user = module.exports.findByUsername(username);
-      // if the user is undefined return message
-      if(!user) {
-        done(null, false, { message: 'Incorrect username.' });
-      }
-      // if password is wrong return message
-      else if(user.password != password) {
-        done(null, false, { message: 'Incorrect username.' });
-      }
-      // if all pass then run callback done
-      else {
-        return done(null, user);
-      }
-
-  }),
+      // process.tick to run function in time order
+      process.nextTick(function() {
+        // check for the user based off username
+        module.exports.findByUsername(username, function(err, user) {
+          if(err) {
+            return done(err);
+          }
+          if(!user) {
+            return done(null, false, {message: "Unknown user" + username});
+          }
+          if(user.password != password) {
+            return done(null, false, {message: "Invalid password"});
+          }
+          if(user) {
+            if(user.role === 'admin') {
+              user.role = userRoles.admin;
+            } else {
+              user.role = userRoles.user;
+            }
+          }
+          return done(null, user);
+        })
+      });
+    }
+  ),
 
   // TWITTER STRATEGY
   // TODO: add consumer key and secret

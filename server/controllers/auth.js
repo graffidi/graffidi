@@ -13,7 +13,7 @@ module.exports = {
     }
 
     // addUser to the User connection model using the request body
-    User.addUser(req.body.username, req.body.password, req.body.role, function(err, user) {
+    User.addUser(req.body.username, req.body.password, req.body.role, req.body.email, req.body.first_name, req.body.last_name, function(err, user) {
       if(err === 'UserAlreadyExists') {
         return res.send(403, "User already exists");
       }
@@ -27,7 +27,7 @@ module.exports = {
           next(err);
         }
         else {
-          res.json(200, { "role": user.role, "username": user.username });
+          res.json(200, { "role": user.role, "username": user.username, "first_name": user.first_name, "last_name": user.last_name });
         }
       });
     });
@@ -52,7 +52,7 @@ module.exports = {
         if(req.body.rememberme) {
           req.session.cookie.maxAge = 1000 * 60 * 60 * 24 * 7;
         }
-        res.json(200, { "role": user.role, "username": user.username });
+        res.json(200, { "role": user.role, "username": user.username, "id": user.id, "first_name": user.first_name, "last_name": last_name });
       });
     })(req, res, next);
   },

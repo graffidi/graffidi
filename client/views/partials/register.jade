@@ -1,6 +1,18 @@
 h1 Register
 form.form-horizontal(ng-submit="register()", name="registerForm")
     .control-group
+        label.control-label(for="first_name") First Name
+        .controls
+            input(type="text", data-ng-model="first_name", placeholder="First Name", name="first_name", required, data-ng-minlength="1", data-ng-maxlength="20", autofocus)
+
+        label.control-label(for="last_name") Last Name
+        .controls
+            input(type="text", data-ng-model="last_name", placeholder="Last Name", name="last_name", required, data-ng-minlength="1", data-ng-maxlength="20", autofocus)
+    .control-group
+        label.control-label(for="email") Email Address
+        .controls
+            input(type="text", data-ng-model="email", placeholder="person@people.com", name="email", required, data-ng-minlength="1", data-ng-maxlength="20", autofocus)
+    .control-group
         label.control-label(for="username") Username
         .controls
             input(type="text", data-ng-model="username", placeholder="Username", name="username", required, data-ng-minlength="1", data-ng-maxlength="20", autofocus)
@@ -15,16 +27,15 @@ form.form-horizontal(ng-submit="register()", name="registerForm")
         label.radio.inline
             input(type="radio", name="role", data-ng-model="role", id="adminRole", data-ng-value="userRoles.user")
             | Normal user
-    .control-group
-        .controls
-            button.btn(type="submit", data-ng-disabled="registerForm.$invalid") Submit
-
     .alert.alert-error(ng-show="registerForm.$invalid && registerForm.$dirty")
         strong Please correct the following errors:
         ul
             li(ng-show="registerForm.username.$error.required") Username is required
             li(ng-show="registerForm.username.$error.minlength") Username has to be at least 1 character long
-            li(ng-show="registerForm.username.$error.maxlength") Username has to be at most 20 character long
+            li(ng-show="registerForm.username.$error.maxlength") Username has to be at most 60 character long
             li(ng-show="registerForm.password.$error.required") Password is required
             li(ng-show="registerForm.password.$error.minlength") Password must be at least 5 characters long
             li(ng-show="registerForm.password.$error.maxlength") Password must be at most 60 characters long
+    .control-group
+        .controls
+            button.btn(type="submit") Submit

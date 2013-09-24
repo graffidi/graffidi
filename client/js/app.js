@@ -1,9 +1,9 @@
 'use strict';
-
-angular.module('angular-client-side-auth', ['ngCookies'])
-
+// graffidi uses ngCookies
+angular.module('graffidi', ['ngCookies'])
+	// set up config for the graffidi module
   .config(['$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider) {
-
+  	// access id the routingConfig for the access levels
 	  var access = routingConfig.accessLevels;
 	  $routeProvider.when('/', {
 	    templateUrl: '/partials/home',
