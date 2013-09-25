@@ -5,7 +5,9 @@ var          _ = require('underscore'),
       passport = require('passport'),
       AuthCtrl = require('./controllers/auth'),
       UserCtrl = require('./controllers/user'),
+      MarkCtrl = require('./controllers/mark'),
           User = require('./models/User.js'),
+          Mark = require('./models/Mark.js'),
   // userRoles and accessLevels are controlled from the client side
      userRoles = require('../client/js/routingConfig').userRoles,
   accessLevels = require('../client/js/routingConfig').accessLevels,
@@ -113,6 +115,18 @@ var routes = [
       httpMethod: 'GET',
       middleware: [UserCtrl.index],
       accessLevel: accessLevels.admin
+    },
+    {
+      path: '/marks',
+      httpMethod: 'GET',
+      middleware: [MarkCtrl.index],
+      accessLevel: accessLevels.user
+    },
+    {
+      path: '/addmark',
+      httpMethod: 'POST',
+      middleware: [MarkCtrl.addMark],
+      accessLevel: accessLevels.user
     },
 
     // All other get requests should be handled by AngularJS's client-side routing system

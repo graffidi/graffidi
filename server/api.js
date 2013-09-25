@@ -78,6 +78,7 @@ User.sync().success(function(){
 // GET
 
 exports.posts = function (req, res) {
+  console.log("inside of the api getting the posts!");
   Mark.findAll().success(function(marks){
     console.log('Got all Marks ', marks.length);
     data.posts = marks;

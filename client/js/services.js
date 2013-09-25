@@ -60,3 +60,19 @@ angular.module('graffidi')
     }
   };
 });
+
+angular.module('graffidi')
+.factory('Marks', function($http) {
+  return {
+    getAll: function(success, error) {
+      $http.get('/marks').success(success).error(error);
+    },
+    addMark: function(mark, success, error) {
+      $http.post('/addmark', mark).success(function(res) {
+        console.log("check if it added");
+        //addMark(res);
+        success();
+      }).error(error);
+    },
+  };
+});

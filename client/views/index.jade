@@ -2,17 +2,16 @@
 html(lang='en', data-ng-app='graffidi')
     head
         meta(charset='utf-8')
-        title Angular Auth Example
+        title Graffidi
         link(rel='stylesheet', href='css/app.css')
-        link(href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css", rel="stylesheet")
-        link(href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.min.css", rel="stylesheet")
+        link(href="/css/bootstrap-combined.no-icons.min.css", rel="stylesheet")
 
         // This is needed because Facebook login redirects add #_=_ at the end of the URL
         script(type="text/javascript").
             if (window.location.href.indexOf('#_=_') > 0) {
                 window.location = window.location.href.replace(/#.*/, '');
             }
-    body(data-ng-cloak)
+    body.body(data-ng-cloak)
 
         .navbar(data-ng-controller="NavCtrl")
             .navbar-inner
@@ -24,6 +23,8 @@ html(lang='en', data-ng-app='graffidi')
                             a(href='/register') Register
                         li(data-access-level='accessLevels.user', active-nav)
                             a(href='/') Home
+                        li(data-access-level='accessLevels.user', active-nav)
+                            a(href='/addmark') Add Mark
                         li(data-access-level='accessLevels.user', active-nav)
                             a(href='/private') Private
                         li(data-access-level='accessLevels.admin', active-nav)
@@ -37,7 +38,7 @@ html(lang='en', data-ng-app='graffidi')
                         span.label(data-ng-class='{"label-info": user.role.title == userRoles.user.title, "label-success": user.role.title == userRoles.admin.title}') {{ user.role.title }}
 
         .container
-            div(data-ng-view='ng-view')
+            div.content(data-ng-view='ng-view')
             .alert.alert-error(data-ng-bind="error", data-ng-show="error")
 
         script(src='http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js')

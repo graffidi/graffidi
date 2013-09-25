@@ -25,6 +25,11 @@ angular.module('graffidi', ['ngCookies'])
 	    controller: 'PrivateCtrl',
 	    access: access.user
 	  });
+	  $routeProvider.when('/addmark', {
+	    templateUrl: '/partials/addmark',
+	    controller: 'AddCtrl',
+	    access: access.user
+	  });
 	  $routeProvider.when('/admin', {
 	    templateUrl:    '/partials/admin',
 	    controller:     'AdminCtrl',

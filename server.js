@@ -3,7 +3,8 @@ var express = require('express'),
        http = require('http'),
    passport = require('passport'),
        path = require('path'),
-       User = require('./server/models/User.js');
+       User = require('./server/models/User.js'),
+        api = require('./server/api.js');
 
 // create the express/node server
 var app = express();
@@ -32,7 +33,6 @@ passport.serializeUser(User.serializeUser);
 passport.deserializeUser(User.deserializeUser);
 
 require('./server/routes.js')(app);
-
 // set the port to listen to the exvironement port or port 8000
 app.set('port', process.env.PORT || 8000);
 

@@ -1,2 +1,32 @@
-h1 Hello
-p This view is visible to logged in users.
+div(ng-controller='HomeCtrl')
+  p There are {{marks.length}} marks
+  div.item(ng-repeat='mark in marks | orderBy:likes:true')
+    iframe(type='text/html', src='http://www.youtube.com/embed/{{mark.video_id}}?start={{mark.start_time}}&end={{mark.end_time}}&showinfo=0&controls=0&origin=http://localhost:3000')
+    {{app.address().port}}
+    div.timeline
+      img(src='img/mark.svg')
+    div.sidebar
+        div.share(ng-click='shareMark(post)')
+          img(src='img/share.svg')
+          div{{0}}
+        div.likes(ng-click='plusVote(post)')
+          img(src='img/like.svg')
+          div{{0}}
+        div.comments(ng-click='/readPost/{{mark.id}}')
+          img(src='img/comment.svg')
+          div{{0}}
+    div.mark-info
+      div.title {{mark.title}}
+      div.posted-by {{mark.posted_by}}
+      div(ng-repeat='message in messages | filter: {mark_id:mark.id}')
+        div {{users[message.author_id].first_name}} {{users[message.author_id].last_name}} - {{message.content}}
+    form.comment
+      input.comment
+      button.submit +
+    div.mark-buttons 
+      a(href='/readPost/{{mark.id}}') Read the full discussion
+      |  - 
+      a(href='/editPost/{{mark.id}}') Edit Mark
+      |  - 
+      a(href='/deletePost/{{mark.id}}') Delete Mark
+
