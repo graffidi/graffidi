@@ -52,7 +52,7 @@ angular.module('graffidi')
   };
 });
 
-angular.module('angular-client-side-auth')
+angular.module('graffidi')
 .factory('Users', function($http) {
   return {
     getAll: function(success, error) {

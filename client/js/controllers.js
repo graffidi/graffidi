@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-angular.module('graffi')
+angular.module('graffidi')
   .controller('NavCtrl', ['$scope', '$location', 'Auth', function($scope, $location, Auth) {
   $scope.user = Auth.user;
   $scope.userRoles = Auth.userRoles;
@@ -16,7 +16,7 @@ angular.module('graffi')
     });
   };
 }]);
-angular.module('graffi')
+angular.module('graffidi')
 .controller('LoginCtrl',
 ['$rootScope', '$scope', '$location', '$window', 'Auth', function($rootScope, $scope, $location, $window, Auth) {
 
@@ -40,12 +40,13 @@ angular.module('graffi')
   };
 }]);
 
-angular.module('graffi')
+angular.module('graffidi')
 .controller('HomeCtrl',
 ['$rootScope', function($rootScope) {
+
 }]);
 
-angular.module('graffi')
+angular.module('graffidi')
 .controller('RegisterCtrl',
 ['$rootScope', '$scope', '$location', 'Auth', function($rootScope, $scope, $location, Auth) {
   $scope.role = Auth.userRoles.user;
@@ -53,7 +54,10 @@ angular.module('graffi')
 
   $scope.register = function() {
     Auth.register({
+      first_name: $scope.first_name,
+      last_name: $scope.last_name,
       username: $scope.username,
+      email: $scope.email,
       password: $scope.password,
       role: $scope.role
     },
@@ -66,13 +70,13 @@ angular.module('graffi')
   };
 }]);
 
-angular.module('graffi')
+angular.module('graffidi')
 .controller('PrivateCtrl',
 ['$rootScope', function($rootScope) {
 }]);
 
 
-angular.module('graffi')
+angular.module('graffidi')
 .controller('AdminCtrl',
 ['$rootScope', '$scope', 'Users', 'Auth', function($rootScope, $scope, Users, Auth) {
   $scope.loading = true;

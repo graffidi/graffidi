@@ -1,5 +1,5 @@
 {
-    "name": "angular-client-side-auth",
+    "name": "graffidi",
     "version": "0.0.1",
     "dependencies": {
         "express": "*",
@@ -16,9 +16,9 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/fnakstad/angular-client-side-auth"
+        "url": "https://github.com/ruparocks/graffidi"
     },
-    "subdomain": "angular-client-side-auth",
+    "subdomain": "graffidi",
     "scripts": {
         "start": "server.js"
     },

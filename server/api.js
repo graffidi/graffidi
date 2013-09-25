@@ -1,7 +1,7 @@
 /*
  * Serve JSON to our AngularJS client
  */
-Sequelize = require("sequelize");
+Sequelize = require("sequelize-mysql").sequelize;
 // Start Sequelize
 var sequelize = new Sequelize('graffidi', 'root');
 

@@ -9,7 +9,7 @@ var              _ = require('underscore'),
     GoogleStrategy = require('passport-google').Strategy,
   LinkedInStrategy = require('passport-linkedin').Strategy,
              check = require('validator').check,
-             //async = require('async'),
+             async = require('async'),
          userRoles = require('../../client/js/routingConfig').userRoles,
          Sequelize = require('sequelize-mysql').sequelize;
 
@@ -127,6 +127,7 @@ module.exports = {
         return callback(null, null);
       }
       if (user.username === username) {
+        console.log("I'm in the findByUsername function");
         return callback(null, user);
       }
     });

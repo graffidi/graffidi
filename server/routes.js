@@ -8,7 +8,8 @@ var          _ = require('underscore'),
           User = require('./models/User.js'),
   // userRoles and accessLevels are controlled from the client side
      userRoles = require('../client/js/routingConfig').userRoles,
-  accessLevels = require('../client/js/routingConfig').accessLevels;
+  accessLevels = require('../client/js/routingConfig').accessLevels,
+           api = require('./api.js');
 
 // array of the routes that the server uses
 var routes = [
@@ -198,9 +199,9 @@ function ensureAuthorized(req, res, next) {
   var accessLevel = _.findWhere(routes, { path: req.route.path }).accessLevel || accessLevels.public;
 
   // if not true then return a 403 response
-  if(!(accessLevel.bitMask & role.bitMask)) {
-  	return res.send(403);
-  }
+  // if(!(accessLevel.bitMask & role.bitMask)) {
+  // 	return res.send(403);
+  // }
     // otherwise return next and enter the 
     return next();
 }

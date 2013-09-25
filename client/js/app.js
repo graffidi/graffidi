@@ -60,7 +60,7 @@ angular.module('graffidi', ['ngCookies'])
 
 	  $httpProvider.responseInterceptors.push(interceptor);
 
-  }]);
+  }])
 
   .run(['$rootScope', '$location', 'Auth', function ($rootScope, $location, Auth) {
 
