@@ -48,8 +48,8 @@ Users.findAll().success(function(allusers){
 
 // set modelue.exports object
 module.exports = {
-	// addUser function - takes username, password, role, callback
-  addUser: function(username, password, role, callback) {
+	// addUser function - takes username, password, role, first_name, last_name, email, callback
+  addUser: function(username, password, role, first_name, last_name, email, callback) {
     // Search the User table for the username supplied
     Users.find({where: {username: username}}).success(function(user) {
       // If doesn't exist create new user
@@ -57,8 +57,8 @@ module.exports = {
         var user = {
           // Refactor without .max if time
           id: _.max(users, function(user) { return user.id; }).id + 1,
-          username:   username,
-          password:   password,
+          username: username,
+          password: password,
           first_name: first_name,
           last_name: last_name,
           email: email,
