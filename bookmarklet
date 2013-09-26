@@ -1,0 +1,28 @@
+javascript:(function(){window.open('http://localhost:8000/share/?'+encodeURIComponent(window.location.href)+'&title='+encodeURIComponent(document.title)+'&author='+encodeURIComponent(document.getElementsByClassName("yt-user-name")[0].text)+'&start='+encodeURIComponent(document.getElementById('movie_player').getCurrentTime())+'&duration='+encodeURIComponent(document.getElementById('movie_player').getDuration()),'_blank',toolbar=0,resizable=0,status=1,width='450px',height='430px');})()
+
+Changes: 
+// don't get redirected to the graffidi page
+// can overlay on the youtube page
+  // try to get the page to overlay
+
+ // multi line text box for adding message to the comment
+ // ask ari about ng-click to show the comment box
+ // change the font to gotham-light
+ // add the default image circle before the user name
+   //X document.getElementsByClassName("yt-user-name")[0].text;
+   //X document.getElementById('movie_player').getCurrentTime();
+   //X document.getElementById('movie_player').getDuration();
+
+
+
+ //create one new page
+   //X separate the bookmarklet addmark function from the main adding function
+   // have it add the link and close the window on completion
+   // get the bookmarklet to size smaller than it is right now
+   //X get the bookmarklet to capture the youtube information
+
+   //X add message box
+
+
+
+   javascript:(function(){window.open('http://localhost:8000/share/?'+encodeURIComponent(window.location.href), ' _blank', toolbar=0,resizable=0,status=1,width='450px',height='430px');})()

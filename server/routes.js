@@ -128,6 +128,12 @@ var routes = [
       middleware: [MarkCtrl.addMark],
       accessLevel: accessLevels.user
     },
+    {
+      path: '/share',
+      httpMethod: 'POST',
+      middleware: [MarkCtrl.addMark],
+      accessLevel: accessLevels.user
+    },
 
     // All other get requests should be handled by AngularJS's client-side routing system
     // placed at the end of all the calls so that it only is called if none of the prev calls are made

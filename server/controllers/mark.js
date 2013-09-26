@@ -12,9 +12,6 @@ module.exports = {
     res.json(marks);
   },
   addMark: function(req, res, next) {
-  	//get URL from req
-  	var path = req.path;
-  	console.log(path);
     // addMark on Mark model
     Mark.addMark(req.body.video_id, req.body.title, req.body.posted_by, req.body.start_time, req.body.end_time, function(err, mark) {
     	if(err) {

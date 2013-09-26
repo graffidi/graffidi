@@ -1,0 +1,17 @@
+<a href="javascript:(function(){window.location='http://localhost:3000/addPost'+encodeURIComponent(window.location.href);})()">graffidi</a>
+
+<a href="javascript:void(function(){window.location='http://localhost:3000/addPost'+encodeURIComponent(window.location.href);})()">graffidi</a>
+
+app.post('/login', function(req, res, next) {
+  passport.authenticate('local', function(err, user, info) {
+    if (err) { return next(err) }
+    if (!user) {
+      req.flash('error', info.message);
+      return res.redirect('/login')
+    }
+    req.logIn(user, function(err) {
+      if (err) { return next(err); }
+      return res.redirect('/users/' + user.username);
+    });
+  })(req, res, next);
+});

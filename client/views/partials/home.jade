@@ -1,10 +1,12 @@
 div(ng-controller='HomeCtrl')
   p There are {{marks.length}} marks
   div.item(ng-repeat='mark in marks | orderBy:likes:true')
-    iframe(type='text/html', src='http://www.youtube.com/embed/{{mark.video_id}}?start={{mark.start_time}}&end={{mark.end_time}}&showinfo=0&controls=0&origin=http://localhost:3000')
+    iframe(type='text/html', src='http://www.youtube.com/embed/{{mark.video_id}}?start={{mark.start_time}}&end={{mark.end_time}}&showinfo=0&controls=0&origin=http://localhost:8000')
     {{app.address().port}}
     div.timeline
+      span {{mark.start_time}} secs
       img(src='img/mark.svg')
+      span {{mark.end_time}} secs
     div.sidebar
         div.share(ng-click='shareMark(post)')
           img(src='img/share.svg')
@@ -16,8 +18,11 @@ div(ng-controller='HomeCtrl')
           img(src='img/comment.svg')
           div{{0}}
     div.mark-info
-      div.title {{mark.title}}
+      div.title 
+        a(href='http://www.youtube.com/watch?v={{mark.video_id}}')
+          {{mark.title}}
       div.posted-by {{mark.posted_by}}
+      div.duration Duration: {{mark.end_time - mark.start_time}} seconds
       div(ng-repeat='message in messages | filter: {mark_id:mark.id}')
         div {{users[message.author_id].first_name}} {{users[message.author_id].last_name}} - {{message.content}}
     form.comment

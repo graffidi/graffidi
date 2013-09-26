@@ -101,14 +101,18 @@
 }
 
 .item {width: 300px; position: relative; float: left; margin: 0 10px; margin-bottom: 10px; background-color: #FFFFFF;}
+.bookmarklet {width: 690px;}
+.hero-unit-addmark {width: 690px;}
 .item iframe {border:0; margin:0px;}
+.addmark {width:640px; height: 390px;}
 .title {font-size: 12; font-weight: bold;}
 .posted-by {font-size: 10px; padding-bottom: 5px;}
 .mark-info {padding: 10px; margin-top: 20px;}
 .mark-buttons {padding: 10px; background-color: #E6EAF0;}
 .mark-buttons a {color: #000000; text-decoration: none;}
-.timeline {position: absolute; top:150px; left: 0; right:0; height: 18px; background-color: #222830;}
+.timeline {color:#FFFFFF; position: absolute; top:150px; left: 0; right:0; height: 18px; background-color: #222830;}
 .timeline img {margin-left: 25%;}
+.timeline span {padding-left: 10px; vertical-align: top;}
 .sidebar {width:22px; position: relative; top: 20px; float:right; background-color: #E6EAF0;}
 .likes, .share, .comments {height: 33px; font-size: 7px; text-align: center;}
 .likes img, .share img, .comments img {margin-top: 3px; height: 17px; width: 16px;}

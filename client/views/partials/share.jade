@@ -1,10 +1,10 @@
-.hero-unit-addmark
+.bookmarklet
   h1 Add Mark
   form.form-horizontal(ng-model="form", ng-change='showVideo()', ng-submit="addMark()")
     .control-group
-        iframe.addmark(type='text/html', src='http://www.youtube.com/embed/{{form.video_id}}?start={{form.start_time}}&end={{form.end_time}}&showinfo=0&controls=0&origin=http://localhost:3000')
-        slider(floor="0", ceiling="100", ng-model-low="form.start_time", ng-model-high="form.end_time")
-
+      iframe.addmark(type='text/html', src='http://www.youtube.com/embed/{{form.video_id}}?start={{form.start_time}}&end={{form.end_time}}&showinfo=0&controls=0&origin=http://localhost:3000')
+      slider(floor="0", ceiling='{{form.duration}}', ng-model-low="form.start_time", ng-model-high="form.end_time")
+      {{form.duration}}
     .control-group
       label.control-label(for="video_url") Video URL
       .controls
@@ -12,11 +12,11 @@
     .control-group
       label.control-label(for="title") Youtube Title
       .controls
-        input(type="text", ng-model="form.title", placeholder="YouTube Video Title", name="title", data-ng-minlength="1", data-ng-maxlength="20", autofocus)
+        input(type="text", ng-model="form.title", ng-change='showVideo()', placeholder="YouTube Video Title", name="title", autofocus)
     .control-group
       label.control-label(for="posted_by") YouTube Author
       .controls
-        input(type="text", ng-model='form.posted_by', name='posted_by' placeholder="YouTube Author Name",  autofocus)
+        input(type="text", ng-model='form.posted_by', ng-change='showVideo()', name='posted_by' placeholder="YouTube Author Name",  autofocus)
     .control-group
       label.control-label(for="start_time") Start Time
       .controls
@@ -26,8 +26,9 @@
       .controls
         input(type="text", ng-model="form.end_time", placeholder="End time in secs", name="end_time", autofocus)
     .control-group
-      label.control-label(for="text") Message
+      label.control-label(for="message") Message
       .controls
-        textarea(ng-model="form.text")
+        textarea(ng-model="form.message", placeholder="Enter your message here",name="message", autofocus)
     .control-group
+      .controls
         button.btn(type="submit") Submit

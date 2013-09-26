@@ -1,6 +1,6 @@
 'use strict';
 // graffidi uses ngCookies
-angular.module('graffidi', ['ngCookies'])
+angular.module('graffidi', ['ngCookies', 'uiSlider'])
 	// set up config for the graffidi module
   .config(['$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider) {
   	// access id the routingConfig for the access levels
@@ -28,6 +28,11 @@ angular.module('graffidi', ['ngCookies'])
 	  $routeProvider.when('/addmark', {
 	    templateUrl: '/partials/addmark',
 	    controller: 'AddCtrl',
+	    access: access.user
+	  });
+	  $routeProvider.when('/share', {
+	    templateUrl: '/partials/share',
+	    controller: 'ShareCtrl',
 	    access: access.user
 	  });
 	  $routeProvider.when('/admin', {
