@@ -1,12 +1,14 @@
-javascript:(function(){window.open('http://localhost:8000/share/?'+encodeURIComponent(window.location.href)+'&title='+encodeURIComponent(document.title)+'&author='+encodeURIComponent(document.getElementsByClassName("yt-user-name")[0].text)+'&start='+encodeURIComponent(document.getElementById('movie_player').getCurrentTime())+'&duration='+encodeURIComponent(document.getElementById('movie_player').getDuration()),'_blank',toolbar=0,resizable=0,status=1,width='450px',height='430px');})()
+javascript:(function(){window.open('http://localhost:8000/share/?'+encodeURIComponent(window.location.href)+'&title='+encodeURIComponent(document.title)+'&author='+encodeURIComponent(document.getElementsByClassName("yt-user-name")[0].text)+'&start='+encodeURIComponent(document.getElementById('movie_player').getCurrentTime())+'&duration='+encodeURIComponent(document.getElementById('movie_player').getDuration()),'_blank','width=660,height=660');})()
 
 Changes: 
 // don't get redirected to the graffidi page
 // can overlay on the youtube page
   // try to get the page to overlay
 
- // multi line text box for adding message to the comment
- // ask ari about ng-click to show the comment box
+ //X multi line text box for adding message to the comment
+
+ // ask ari about ng-click to show the comment box and about reload issues with the styling
+
  // change the font to gotham-light
  // add the default image circle before the user name
    //X document.getElementsByClassName("yt-user-name")[0].text;
@@ -15,14 +17,31 @@ Changes:
 
 
 
- //create one new page
+ //X create one new page
    //X separate the bookmarklet addmark function from the main adding function
    // have it add the link and close the window on completion
-   // get the bookmarklet to size smaller than it is right now
+   //X get the bookmarklet to size smaller than it is right now
    //X get the bookmarklet to capture the youtube information
 
    //X add message box
 
+   // tags
+   // search feature
+   // create the tabs on the bookmarklet page to add more information to the mark
+
+my goals are as follow:
+1. fix the refresh bug on the bookmarklet
+2. Xclean up the bookmarklet and remove the title, author, url, change start and end time 
+     - add a tag field that adds to a list of tags
+3. add the "read full discussion" template to load in a modal popup
+4. display messages in the tree structure
+5. pull youtube thumbnails and add graffidi play button
+6. test basic login/logout feature
+7. add search feature to the home page 
 
 
+
+
+
+// old bookmarklet
    javascript:(function(){window.open('http://localhost:8000/share/?'+encodeURIComponent(window.location.href), ' _blank', toolbar=0,resizable=0,status=1,width='450px',height='430px');})()

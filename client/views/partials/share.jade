@@ -4,27 +4,14 @@
     .control-group
       iframe.addmark(type='text/html', src='http://www.youtube.com/embed/{{form.video_id}}?start={{form.start_time}}&end={{form.end_time}}&showinfo=0&controls=0&origin=http://localhost:3000')
       slider(floor="0", ceiling='{{form.duration}}', ng-model-low="form.start_time", ng-model-high="form.end_time")
-      {{form.duration}}
-    .control-group
-      label.control-label(for="video_url") Video URL
-      .controls
-        input(type="text", ng-model='form.video_url', ng-change='showVideo()', name='video_url', autofocus)
-    .control-group
-      label.control-label(for="title") Youtube Title
-      .controls
-        input(type="text", ng-model="form.title", ng-change='showVideo()', placeholder="YouTube Video Title", name="title", autofocus)
-    .control-group
-      label.control-label(for="posted_by") YouTube Author
-      .controls
-        input(type="text", ng-model='form.posted_by', ng-change='showVideo()', name='posted_by' placeholder="YouTube Author Name",  autofocus)
     .control-group
       label.control-label(for="start_time") Start Time
       .controls
-        input(type="text", ng-model="form.start_time", placeholder="Start time in secs", name="start_time", autofocus)
+        input(type="text", ng-model="form.start_time", placeholder="Start time in secs", size="8", name="start_time", autofocus)
     .control-group
       label.control-label(for="end_time") End Time
       .controls
-        input(type="text", ng-model="form.end_time", placeholder="End time in secs", name="end_time", autofocus)
+        input(type="text", ng-model="form.end_time", placeholder="End time in secs", name="end_time", size="8", autofocus)
     .control-group
       label.control-label(for="message") Message
       .controls
