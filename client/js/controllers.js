@@ -185,12 +185,13 @@ angular.module('graffidi')
   // get the start_time from the youtube video
   // remove everything after & before sending to form
   if(path.match(/&start=/gi)) {
+    // currentTime on YouTube video
     var start = path.split('&start=')[1];
     var ampLoc3 = start.indexOf('&');
     if (ampLoc3 != -1) {
       start = start.substring(0, ampLoc3);
     }
-    $scope.form.start_time = start;
+    $scope.form.start_time = start - 20;
   }
 
   // get the duration/end_time from the youtube video
@@ -198,7 +199,7 @@ angular.module('graffidi')
   if(path.match(/&duration=/gi)) {
     var duration = path.split('&duration=')[1];
     // author = author.replace(/\%20/g, ' ');
-    $scope.form.end_time = duration;
+    $scope.form.end_time = start + 20;
     // set form.duration
     $scope.form.duration = duration;
   }
@@ -228,7 +229,8 @@ angular.module('graffidi')
       end_time: $scope.form.end_time
     },
     function() {
-      $location.path('/');
+      window.close(); // close the window after it is added
+      $location.path('/'); 
     },
     function(err) {
       $rootScope.error = err; // sends the error up a level to the rootScope
